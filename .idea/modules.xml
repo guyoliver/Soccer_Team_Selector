@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SoccerTeamSelector.iml" filepath="$PROJECT_DIR$/.idea/modules/SoccerTeamSelector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" filepath="$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" />
+    </modules>
+  </component>
+</project>
