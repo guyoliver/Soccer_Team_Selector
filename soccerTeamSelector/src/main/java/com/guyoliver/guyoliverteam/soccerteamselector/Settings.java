@@ -54,7 +54,9 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
 
         Integer numberOfTeams = settingDb.getNumberOfTeams();
         Integer numberOfPlayersPerTeams = settingDb.getNumberOfPlayersPerTeam();
-        Integer defenseAttackRation = settingDb.getRatioAttackDefense();
+        Integer defenseAttackRation = settingDb.getAttackFactor();
+
+        //TODO  Need to fix view with support of all factors instead of existing
 
         spinnerNumberOfTeams.setSelection(((ArrayAdapter)spinnerNumberOfTeams.getAdapter()).getPosition(numberOfTeams.toString()));
         spinnerNumberOfPlayersPerTeam.setSelection(((ArrayAdapter)spinnerNumberOfPlayersPerTeam.getAdapter()).getPosition(numberOfPlayersPerTeams.toString()));
@@ -70,7 +72,9 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
 
         //save settings to DB
         SettingDatabase settingDb = SettingDatabase.getInstance(context);
-        settingDb.saveSettingsToDb(numberOfTeams, numberOfPlayersPerTeams, defenseAttackRation);
+        //TODO need to fix view and save to DB from view
+        settingDb.saveSettingsToDb(numberOfTeams, numberOfPlayersPerTeams, 40,
+                30, 0, 30);
 
     }
 

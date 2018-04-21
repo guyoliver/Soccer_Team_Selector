@@ -13,7 +13,8 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
 
     TextView textViewViewPlayers;
     EditText editTextName;
-    Spinner spinnerDefensePlayerLevel, spinnerAttackPlayerLevel;
+    Spinner spinnerDefensePlayerLevel, spinnerAttackPlayerLevel, spinnerPlayMakerPlayerLevel,
+            spinnerFitnessPlayerLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +23,10 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
 
         textViewViewPlayers = (TextView) findViewById(R.id.textViewViewPlayers);
         editTextName = (EditText) findViewById(R.id.editTextName);
-        spinnerDefensePlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerDefense);
         spinnerAttackPlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerAttack);
+        spinnerDefensePlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerDefense);
+        spinnerPlayMakerPlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerPlayMaker);
+        spinnerFitnessPlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerFitness);
 
         findViewById(R.id.buttonAddPlayer).setOnClickListener(this);
         findViewById(R.id.buttonAddDefaultPlayers).setOnClickListener(this);
@@ -35,10 +38,13 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     //In this method we will do the create operation
     private void addPlayer() {
         String name = editTextName.getText().toString().trim();
-        int defense = Integer.parseInt(spinnerDefensePlayerLevel.getSelectedItem().toString());
         int attack = Integer.parseInt(spinnerAttackPlayerLevel.getSelectedItem().toString());
+        int defense = Integer.parseInt(spinnerDefensePlayerLevel.getSelectedItem().toString());
+        int playmaker = Integer.parseInt(spinnerPlayMakerPlayerLevel.getSelectedItem().toString());
+        int fitness = Integer.parseInt(spinnerFitnessPlayerLevel.getSelectedItem().toString());
         if (inputsAreCorrect(name)) {
-            if (PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb(name, defense, attack))
+            if (PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb(name, attack,
+                    defense, playmaker, fitness))
             {
                 Toast.makeText(this, "Player Added Successfully", Toast.LENGTH_SHORT).show();
             } else //failed
@@ -63,6 +69,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     void addDefaultPlayers(){
+        /*
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלי",17, 25);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("מוני",10, 22);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוסי",12, 22);
@@ -85,6 +92,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק",7, 10);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא רונן",17, 10);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אורי",10, 5);
+        */
     }
     @Override
     public void onClick(View view) {

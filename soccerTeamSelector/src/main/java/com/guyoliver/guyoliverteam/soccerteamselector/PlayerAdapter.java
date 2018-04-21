@@ -47,13 +47,17 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
         //getting views
         TextView textViewName = view.findViewById(R.id.textViewName);
-        TextView textViewDefense = view.findViewById(R.id.textViewPlayerDefense);
         TextView textViewAttack = view.findViewById(R.id.textViewPlayerAttack);
+        TextView textViewDefense = view.findViewById(R.id.textViewPlayerDefense);
+        TextView textViewPlayMaker = view.findViewById(R.id.textViewPlayerPlayMaker);
+        TextView textViewFitness = view.findViewById(R.id.textViewPlayerFitness);
 
         //adding data to views
         textViewName.setText(player.getName());
-        textViewDefense.setText(player.getDefense().toString());
         textViewAttack.setText(player.getAttack().toString());
+        textViewDefense.setText(player.getDefense().toString());
+        textViewPlayMaker.setText(player.getPlayMaker().toString());
+        textViewFitness.setText(player.getFitness().toString());
 
         //we will use these buttons later for update and delete operation
         Button buttonDelete = view.findViewById(R.id.buttonDeletePlayer);
@@ -103,13 +107,17 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
 
         final EditText editTextName = view.findViewById(R.id.editTextName);
-        final Spinner spinnerDefense = view.findViewById(R.id.spinnerPlayerDefense);
         final Spinner spinnerAttack = view.findViewById(R.id.spinnerPlayerAttack);
+        final Spinner spinnerDefense = view.findViewById(R.id.spinnerPlayerDefense);
+        final Spinner spinnerPlayMaker = view.findViewById(R.id.spinnerPlayerPlayMaker);
+        final Spinner spinnerFitness = view.findViewById(R.id.spinnerPlayerFitness);
 
         //update the player info into dialog
         editTextName.setText(player.getName());
-        spinnerDefense.setSelection(((ArrayAdapter)spinnerDefense.getAdapter()).getPosition(player.getDefense().toString()));
         spinnerAttack.setSelection(((ArrayAdapter)spinnerAttack.getAdapter()).getPosition(player.getAttack().toString()));
+        spinnerDefense.setSelection(((ArrayAdapter)spinnerDefense.getAdapter()).getPosition(player.getDefense().toString()));
+        spinnerPlayMaker.setSelection(((ArrayAdapter)spinnerPlayMaker.getAdapter()).getPosition(player.getPlayMaker().toString()));
+        spinnerFitness.setSelection(((ArrayAdapter)spinnerFitness.getAdapter()).getPosition(player.getFitness().toString()));
 
         final AlertDialog dialog = builder.create();
         dialog.show();
@@ -120,14 +128,16 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                 String name = editTextName.getText().toString().trim();
                 int defense = Integer.parseInt(spinnerDefense.getSelectedItem().toString());
                 int attack = Integer.parseInt(spinnerAttack.getSelectedItem().toString());
+                int playMaker = Integer.parseInt(spinnerPlayMaker.getSelectedItem().toString());
+                int fitness = Integer.parseInt(spinnerFitness.getSelectedItem().toString());
 
                 if (name.isEmpty()) {
                     editTextName.setError("Name can't be blank");
                     editTextName.requestFocus();
                     return;
                 }
-
-                PlayersDatabase.getInstance(view.getContext()).updatePlayer(String.valueOf(player.getId()),name,defense,attack);
+                PlayersDatabase.getInstance(view.getContext()).updatePlayer(String.valueOf(player.getId()),
+                        name, attack, defense, playMaker,fitness);
                 //run reload operation on Ui thread
                 ((Activity) mCtx).runOnUiThread (new Runnable() {
                     @Override

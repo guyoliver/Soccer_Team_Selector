@@ -24,6 +24,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingLeft="6dp"
+        android:text="Select Attack" />
+
+    <Spinner
+        android:id="@+id/spinnerPlayerAttack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/playerLevel" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="6dp"
         android:text="Select Defense" />
 
     <Spinner
@@ -37,10 +50,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingLeft="6dp"
-        android:text="Select Attack" />
+        android:text="Select Playmaker" />
 
     <Spinner
-        android:id="@+id/spinnerPlayerAttack"
+        android:id="@+id/spinnerPlayerPlayMaker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/playerLevel" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="6dp"
+        android:text="Select Fitness" />
+
+    <Spinner
+        android:id="@+id/spinnerPlayerFitness"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/playerLevel" />

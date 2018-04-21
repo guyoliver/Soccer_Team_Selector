@@ -12,16 +12,22 @@ public class SettingDatabase extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    public static final String DATABASE_NAME = "myplayersettingdatabase";
-    public static final String TABLE_NAME = "SETTINGS";
-    public static final String COLUMN_STRING_ID = "ID";
+    private static final String DATABASE_NAME = "myplayersettingdatabase";
+    private static final String TABLE_NAME = "SETTINGS";
+    private static final String COLUMN_STRING_ID = "ID";
     public static final int COLUMN_NUMBER_ID = 0;
-    public static final String COLUMN_STRING_NUMBER_OF_TEAMS = "NUMBER_OF_TEAMS";
-    public static final int COLUMN_NUMBER_NUMBER_OF_TEAMS = 1;
-    public static final String COLUMN_STRING_NUMBER_OF_PLAYERS_PER_TEAM = "NUMBER_OF_PLAYERS_PER_TEAM";
-    public static final int COLUMN_NUMBER_NUMBER_OF_PLAYERS_PER_TEAM = 2;
-    public static final String COLUMN_STRING_RATIO_DEFENSE_ATTACK = "RATIO_DEFENSE_ATTACK";
-    public static final int COLUMN_NUMBER_RATIO_DEFENSE_ATTACK = 3;
+    private static final String COLUMN_STRING_NUMBER_OF_TEAMS = "NUMBER_OF_TEAMS";
+    private static final int COLUMN_NUMBER_NUMBER_OF_TEAMS = 1;
+    private static final String COLUMN_STRING_NUMBER_OF_PLAYERS_PER_TEAM = "NUMBER_OF_PLAYERS_PER_TEAM";
+    private static final int COLUMN_NUMBER_NUMBER_OF_PLAYERS_PER_TEAM = 2;
+    private static final String COLUMN_STRING_ATTACK_FACTOR = "ATTACK_FACTOR";
+    private static final int COLUMN_NUMBER_ATTACK_FACTOR = 3;
+    private static final String COLUMN_STRING_DEFENSE_FACTOR = "DEFENSE_FACTOR";
+    private static final int COLUMN_NUMBER_DEFENSE_FACTOR = 4;
+    private static final String COLUMN_STRING_PLAYMAKER_FACTOR = "PLAYMAKER_FACTOR";
+    private static final int COLUMN_NUMBER_PLAYMAKER_FACTOR = 5;
+    private static final String COLUMN_STRING_FITNESS_FACTOR = "FITNESS_FACTOR";
+    private static final int COLUMN_NUMBER_FITNESS_FACTOR = 6;
 
     private static final String TAG = PlayersDatabase.class.getName();
 
@@ -54,7 +60,10 @@ public class SettingDatabase extends SQLiteOpenHelper {
                             COLUMN_STRING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,\n " +
                             COLUMN_STRING_NUMBER_OF_TEAMS + " INTEGER NOT NULL,\n " +
                             COLUMN_STRING_NUMBER_OF_PLAYERS_PER_TEAM + " INTEGER NOT NULL,\n " +
-                            COLUMN_STRING_RATIO_DEFENSE_ATTACK + " INTEGER NOT NULL\n " +
+                            COLUMN_STRING_ATTACK_FACTOR + " INTEGER NOT NULL,\n " +
+                            COLUMN_STRING_DEFENSE_FACTOR + " INTEGER NOT NULL,\n " +
+                            COLUMN_STRING_PLAYMAKER_FACTOR + " INTEGER NOT NULL,\n " +
+                            COLUMN_STRING_FITNESS_FACTOR + " INTEGER NOT NULL\n " +
                             ");"
             );
         }
@@ -112,7 +121,8 @@ public class SettingDatabase extends SQLiteOpenHelper {
 
         //if the cursor has some data
         if (false == cursorSetting.moveToFirst()) {
-            saveSettingsToDb(true, 3, 5, 50);
+            saveSettingsToDb(true, 3, 5, 40,
+                    30, 0, 30);
         }
         //closing the cursor
         cursorSetting.close();
@@ -120,16 +130,24 @@ public class SettingDatabase extends SQLiteOpenHelper {
 
 
     //public function to save setting
-    public boolean saveSettingsToDb(Integer numberOfTeams, Integer numberOfPlayers, Integer attackDefenseRatio) {
-        return saveSettingsToDb(false, numberOfTeams, numberOfPlayers, attackDefenseRatio);
+    public boolean saveSettingsToDb(Integer numberOfTeams, Integer numberOfPlayers, Integer attackFactor,
+                                    Integer defenseFactor, Integer playMakerFactor,
+                                    Integer fitnessFactor) {
+        return saveSettingsToDb(false, numberOfTeams, numberOfPlayers, attackFactor,
+                defenseFactor, playMakerFactor, fitnessFactor);
     }
 
         //public function to add player
-    private boolean saveSettingsToDb(Boolean isCreate, Integer numberOfTeams, Integer numberOfPlayers, Integer attackDefenseRatio) {
+    private boolean saveSettingsToDb(Boolean isCreate, Integer numberOfTeams, Integer numberOfPlayers,
+                                     Integer attackFactor, Integer defenseFactor, Integer playMakerFactor,
+                                     Integer fitnessFactor) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_STRING_NUMBER_OF_TEAMS, numberOfTeams);
         contentValues.put(COLUMN_STRING_NUMBER_OF_PLAYERS_PER_TEAM, numberOfPlayers);
-        contentValues.put(COLUMN_STRING_RATIO_DEFENSE_ATTACK, attackDefenseRatio);
+        contentValues.put(COLUMN_STRING_ATTACK_FACTOR, attackFactor);
+        contentValues.put(COLUMN_STRING_DEFENSE_FACTOR, defenseFactor);
+        contentValues.put(COLUMN_STRING_PLAYMAKER_FACTOR, playMakerFactor);
+        contentValues.put(COLUMN_STRING_FITNESS_FACTOR, fitnessFactor);
         if (isCreate)
             mDatabase.insert(TABLE_NAME, COLUMN_STRING_ID + '=' + 1, contentValues);
         else
@@ -150,7 +168,10 @@ public class SettingDatabase extends SQLiteOpenHelper {
             switch (columnId) {
                 case COLUMN_NUMBER_NUMBER_OF_TEAMS:
                 case COLUMN_NUMBER_NUMBER_OF_PLAYERS_PER_TEAM:
-                case COLUMN_NUMBER_RATIO_DEFENSE_ATTACK:
+                case COLUMN_NUMBER_ATTACK_FACTOR:
+                case COLUMN_NUMBER_DEFENSE_FACTOR:
+                case COLUMN_NUMBER_PLAYMAKER_FACTOR:
+                case COLUMN_NUMBER_FITNESS_FACTOR:
                     value = cursorSetting.getInt(columnId);
                     break;
                 default:
@@ -171,8 +192,20 @@ public class SettingDatabase extends SQLiteOpenHelper {
         return getContentFromDb(COLUMN_NUMBER_NUMBER_OF_PLAYERS_PER_TEAM);
     }
 
-    public Integer getRatioAttackDefense() {
-        return getContentFromDb(COLUMN_NUMBER_RATIO_DEFENSE_ATTACK);
+    public Integer getAttackFactor() {
+        return getContentFromDb(COLUMN_NUMBER_ATTACK_FACTOR);
+    }
+
+    public Integer getDefenseFactor() {
+        return getContentFromDb(COLUMN_NUMBER_DEFENSE_FACTOR);
+    }
+
+    public Integer getPlayMakerFactor() {
+        return getContentFromDb(COLUMN_NUMBER_PLAYMAKER_FACTOR);
+    }
+
+    public Integer getFitnessFactor() {
+        return getContentFromDb(COLUMN_NUMBER_FITNESS_FACTOR);
     }
 
 
