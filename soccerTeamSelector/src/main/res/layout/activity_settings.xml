@@ -6,71 +6,142 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".Settings">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="Settings"
-        android:textAlignment="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-    <TextView
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Settings"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="6dp"
+            android:text="Select Number of Teams" />
+
+        <Spinner
+            android:id="@+id/spinnerNumberOfTeams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/numberOfTeams" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="6dp"
+            android:text="Select Number of Players per Team" />
+
+        <Spinner
+            android:id="@+id/spinnerNumberOfPlayersPerTeam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/numberOfPlayersPerTeam" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="6dp"
+            android:text="Select ratio for calculation between attack, defense, playmaker and fitness (all 100%)" />
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="6dp"
-        android:text="Select Number of Teams" />
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/spinnerNumberOfTeams"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/numberOfTeams" />
+        <TextView
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="6dp"
+            android:text="Attack" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="6dp"
-        android:text="Select Number of Players per Team" />
+        <EditText
+            android:id="@+id/editTextAttack"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberSigned" />
+        </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinnerNumberOfPlayersPerTeam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/numberOfPlayersPerTeam" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="6dp"
-        android:text="Select calculation ration between defense and attack\n
-                     Defense                            Attack" />
+            <TextView
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="6dp"
+                android:text="Defense" />
 
-    <SeekBar
-        android:id="@+id/defenseAttackRationSeekBar"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:max="100"
-        android:progress="50"
-        />
+            <EditText
+                android:id="@+id/editTextDefense"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberSigned" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonSaveSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Settings" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="6dp"
+                android:text="Playmaker" />
+
+            <EditText
+                android:id="@+id/editTextPlayMaker"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberSigned" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="6dp"
+                android:text="Fitness" />
+
+            <EditText
+                android:id="@+id/editTextFitness"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberSigned" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonSaveSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Settings" />
 
 
-</LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 public class Settings extends AppCompatActivity  implements View.OnClickListener{
 
     Spinner spinnerNumberOfTeams, spinnerNumberOfPlayersPerTeam;
-    SeekBar defenseAttackRationSeekBar;
+    EditText editTextAttack, editTextDefense, editTextPlaymaker, editTextFitness;
 
 
     @Override
@@ -22,26 +23,13 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
 
         spinnerNumberOfTeams = (Spinner) findViewById(R.id.spinnerNumberOfTeams);
         spinnerNumberOfPlayersPerTeam = (Spinner) findViewById(R.id.spinnerNumberOfPlayersPerTeam);
-        defenseAttackRationSeekBar=(SeekBar)findViewById(R.id.defenseAttackRationSeekBar);
+        editTextAttack =findViewById(R.id.editTextAttack);
+        editTextDefense =findViewById(R.id.editTextDefense);
+        editTextPlaymaker    =findViewById(R.id.editTextPlayMaker);
+        editTextFitness =findViewById(R.id.editTextFitness);
+
 
         findViewById(R.id.buttonSaveSettings).setOnClickListener(this);
-        // perform seek bar change listener event used for getting the progress value
-        defenseAttackRationSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressChangedValue = 0;
-
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChangedValue = progress;
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Settings.this, "Defense / Attack ration is (for Attack) :" + progressChangedValue,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
 
         //load saved data
         loadSettingToView(this.getApplicationContext());
@@ -54,28 +42,43 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
 
         Integer numberOfTeams = settingDb.getNumberOfTeams();
         Integer numberOfPlayersPerTeams = settingDb.getNumberOfPlayersPerTeam();
-        Integer defenseAttackRation = settingDb.getAttackFactor();
-
-        //TODO  Need to fix view with support of all factors instead of existing
+        Integer attackFactor = settingDb.getAttackFactor();
+        Integer defenseFactor = settingDb.getDefenseFactor();
+        Integer playmakerFactor = settingDb.getPlayMakerFactor();
+        Integer fitnessFactor = settingDb.getFitnessFactor();
 
         spinnerNumberOfTeams.setSelection(((ArrayAdapter)spinnerNumberOfTeams.getAdapter()).getPosition(numberOfTeams.toString()));
         spinnerNumberOfPlayersPerTeam.setSelection(((ArrayAdapter)spinnerNumberOfPlayersPerTeam.getAdapter()).getPosition(numberOfPlayersPerTeams.toString()));
-        defenseAttackRationSeekBar.setProgress(defenseAttackRation);
+        editTextAttack.setSelection(attackFactor);
+        editTextDefense.setSelection(playmakerFactor);
+        editTextPlaymaker.setSelection(defenseFactor);
+        editTextFitness.setSelection(fitnessFactor);
 
     }
     //save data from view into database
-    void saveSettingToDatabase(Context context) {
+    boolean saveSettingToDatabase(Context context) {
 
         Integer numberOfTeams = Integer.parseInt(spinnerNumberOfTeams.getSelectedItem().toString());
         Integer numberOfPlayersPerTeams = Integer.parseInt(spinnerNumberOfPlayersPerTeam.getSelectedItem().toString());
-        Integer defenseAttackRation = defenseAttackRationSeekBar.getProgress();
+        Integer attackFactor = Integer.parseInt(editTextAttack.getText().toString());
+        Integer defenseFactor = Integer.parseInt(editTextDefense.getText().toString());
+        Integer playmakerFactor = Integer.parseInt(editTextPlaymaker.getText().toString());
+        Integer fitnessFactor = Integer.parseInt(editTextFitness.getText().toString());
+
+        Integer totalFactor = attackFactor + defenseFactor + playmakerFactor + fitnessFactor;
+        //validity check
+        if (totalFactor != 100)
+        {
+            Toast.makeText(context, "please update factors to total 100, current total " + totalFactor, Toast.LENGTH_SHORT);
+            return false;
+        }
 
         //save settings to DB
         SettingDatabase settingDb = SettingDatabase.getInstance(context);
-        //TODO need to fix view and save to DB from view
-        settingDb.saveSettingsToDb(numberOfTeams, numberOfPlayersPerTeams, 40,
-                30, 0, 30);
+        settingDb.saveSettingsToDb(numberOfTeams, numberOfPlayersPerTeams, attackFactor,
+                defenseFactor, playmakerFactor, fitnessFactor);
 
+        return true;
     }
 
 
@@ -84,9 +87,13 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
         switch (view.getId()) {
             case R.id.buttonSaveSettings:
                 //load saved data
-                saveSettingToDatabase(view.getContext());
-                //close activity
-                finish();
+                if (true == saveSettingToDatabase(view.getContext())) {
+                    //close activity
+                    finish();
+                }
+                else {
+                    //user need to update - error msg
+                }
                 break;
         }
     }
