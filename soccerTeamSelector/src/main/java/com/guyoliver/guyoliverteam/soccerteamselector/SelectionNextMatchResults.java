@@ -1,9 +1,15 @@
 package com.guyoliver.guyoliverteam.soccerteamselector;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +33,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Button btCopyToClipboard;
         setContentView(R.layout.activity_selection_next_match_results);
 
         tv = (TextView) findViewById(R.id.textviewResults);
@@ -39,6 +46,9 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         m_defenseFactor = SettingDatabase.getInstance(this).getDefenseFactor();
         m_playMakerFactor = SettingDatabase.getInstance(this).getPlayMakerFactor();
         m_fitnessFactor = SettingDatabase.getInstance(this).getFitnessFactor();
+
+
+        btCopyToClipboard = (Button) findViewById(R.id.copyToClipboard);
 
         // Create list of teams
         createTeams();
@@ -56,12 +66,34 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             tv.setText(tv.getText() +"Total Score: " + team.getTotalFactor() + "\n");
         }
 
+        //move to next step
+        btCopyToClipboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String theString = "";
+
+                for (Team team: teams) {
+                    theString += team.getName() + "\n----------\n";
+                    for (int i=0; i<team.getNumberOfPlayer(); i++) {
+                        theString += team.getPlayer(i).getName() +"\n";
+                    }
+                }
+
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(v.getContext().CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("teamContent", theString);
+                clipboard.setPrimaryClip(clip);
+
+            }
+        });
+
+
     }
 
     //Create teams array
     private void createTeams() {
         for (int i = 0; i< m_NumberOfTeams; i++) {
-            teams.add(new Team("Team" + i, m_attackFactor, m_defenseFactor,
+            teams.add(new Team("Team" + Integer.toString(i+1), m_attackFactor, m_defenseFactor,
                     m_playMakerFactor, m_fitnessFactor));
         }
     }

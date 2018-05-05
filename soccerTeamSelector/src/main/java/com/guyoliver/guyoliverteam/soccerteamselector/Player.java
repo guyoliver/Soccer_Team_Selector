@@ -64,12 +64,12 @@ public class Player {
                 (this.playMaker*playMakerFactor/100) + (this.fitness*fitness/100));
     }
 
-    public Player(int id, String name,Integer defense, Integer attack, Integer playMaker,
+    public Player(int id, String name,Integer attack,Integer defense,  Integer playMaker,
                   Integer fitness, boolean isPlayNextMatch){
         this.id = id;
         this.name = name;
-        this.defense = defense;
         this.attack = attack;
+        this.defense = defense;
         this.fitness = fitness;
         this.playMaker = playMaker;
         this.isPlayNextMatch = isPlayNextMatch;

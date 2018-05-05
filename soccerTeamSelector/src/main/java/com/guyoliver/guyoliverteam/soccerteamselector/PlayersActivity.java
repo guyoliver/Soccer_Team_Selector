@@ -69,30 +69,28 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     void addDefaultPlayers(){
-        /*
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלי",17, 25);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("מוני",10, 22);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוסי",12, 22);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אסי",15, 20);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ארבל",17, 20);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוהד",12, 20);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דניאל",25, 15);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלירן",20, 15);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יניב",15, 17);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיל",17, 12);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ירון",12, 20);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עידן",12, 17);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוזן",17, 10);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא אוליבר",20, 12);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלון",17, 12);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אור",12, 12);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עופר",7, 17);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוני",17, 12);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עודד",20, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק",7, 10);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא רונן",17, 10);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אורי",10, 5);
-        */
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוהד", 7,6, 6, 8);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוזן", 6,8, 5, 5);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אור", 7,6, 6, 6);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אורי", 4,4, 2, 5);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלון", 6,8, 5, 7);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלי", 10,7, 9, 8);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלירן", 7,7, 6, 7);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אסי", 8,7, 6, 8);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ארבל", 9,8, 8, 9);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק", 5,4, 3, 4);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא אוליבר", 6,8, 6, 8);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא רונן", 6,7, 5, 8);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיל", 6,7, 5, 6);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דניאל", 7,9, 7, 9);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוני", 5,6, 4, 6);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוסי", 8,5, 8, 5);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יניב", 8,7, 7, 7);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ירון", 8,7, 8, 7);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("מוני", 9,7, 9, 8);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עודד", 6,8, 4, 7);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עופר", 6,4, 4, 6);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עידן", 7,8, 7, 7);
     }
     @Override
     public void onClick(View view) {

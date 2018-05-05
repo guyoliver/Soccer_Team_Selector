@@ -1,6 +1,7 @@
 package com.guyoliver.guyoliverteam.soccerteamselector;
 
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * Created by guyolive on 1/25/2018.
@@ -9,7 +10,21 @@ import java.util.Comparator;
 public class PlayerComparatorByDefense implements Comparator<Player>
 {
     public int compare(Player left, Player right) {
-        return right.getDefense().compareTo(left.getDefense());
+        int compare_players = right.getDefense().compareTo(left.getDefense());
+        if (0 == compare_players)
+        {
+            Random rand = new Random();
+
+            //50 is the maximum and the 1 is our minimum
+            int  n = rand.nextInt(50) + 1;
+            if (25 < n)
+                return 1;
+            else
+                return -1;
+        }
+        else
+            return compare_players;
+
     }
 }
 

@@ -11,4 +11,12 @@ tools:context=".SelectionNextMatchResults">
     android:textSize="20sp"
     android:id="@+id/textviewResults"/>
 
+    <Button
+        android:id="@+id/copyToClipboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Copy to clipboard" />
+
 </RelativeLayout>
