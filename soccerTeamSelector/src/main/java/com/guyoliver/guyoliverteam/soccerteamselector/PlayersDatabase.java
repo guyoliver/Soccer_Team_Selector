@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PlayersDatabase extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     public static final String DATABASE_NAME = "myplayerdatabase";
     public static final String TABLE_NAME = "PLAYERS";
@@ -113,7 +113,8 @@ public class PlayersDatabase extends SQLiteOpenHelper {
         {
             switch (upgradeTo)
             {
-                case 2:
+                case 3:
+                    context.deleteDatabase(DATABASE_NAME);
                     //db.execSQL("ALTER TABLE "+ TABLE_NAME + " ADD COLUMN " + COLUMN_STRING_IS_PLAY_NEXT_MATCH + " INTEGER");
                     //db.execSQL("UPDATE " + TABLE_NAME + " SET " +COLUMN_STRING_IS_PLAY_NEXT_MATCH + " = 0 ");
                     break;
