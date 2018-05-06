@@ -3,10 +3,9 @@ package com.guyoliver.guyoliverteam.soccerteamselector;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.SeekBar;
+import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,10 +22,10 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
 
         spinnerNumberOfTeams = (Spinner) findViewById(R.id.spinnerNumberOfTeams);
         spinnerNumberOfPlayersPerTeam = (Spinner) findViewById(R.id.spinnerNumberOfPlayersPerTeam);
-        editTextAttack =findViewById(R.id.editTextAttack);
-        editTextDefense =findViewById(R.id.editTextDefense);
-        editTextPlaymaker    =findViewById(R.id.editTextPlayMaker);
-        editTextFitness =findViewById(R.id.editTextFitness);
+        editTextAttack = (EditText)findViewById(R.id.editTextAttack);
+        editTextDefense = (EditText) findViewById(R.id.editTextDefense);
+        editTextPlaymaker = (EditText) findViewById(R.id.editTextPlayMaker);
+        editTextFitness = (EditText) findViewById(R.id.editTextFitness);
 
 
         findViewById(R.id.buttonSaveSettings).setOnClickListener(this);
