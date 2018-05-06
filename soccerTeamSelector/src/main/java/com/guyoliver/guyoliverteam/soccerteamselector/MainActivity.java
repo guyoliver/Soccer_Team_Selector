@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
 
@@ -33,8 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, PlayersActivity.class));
                 break;
             case R.id.buttonSelectPlayersForNextMatch:
-
-                startActivity(new Intent(this, SelectPlayersForNextMatch.class));
+                //check if there are players in the list
+                List<Player> playersList = PlayersDatabase.getInstance(this).getPlayersFromDatabase();
+                if (playersList.size() < 1) {
+                    Toast.makeText(view.getContext(), "No Players in the list, add players", Toast.LENGTH_LONG);
+                } else {
+                    startActivity(new Intent(this, SelectPlayersForNextMatch.class));
+                }
 
                 break;
             case R.id.buttonSettings:
