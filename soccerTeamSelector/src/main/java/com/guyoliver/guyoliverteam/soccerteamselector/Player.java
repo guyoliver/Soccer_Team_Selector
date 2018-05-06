@@ -60,8 +60,10 @@ public class Player {
 
     public Integer getTotalFactor(Integer attackFactor, Integer DefenseFactor,
                                   Integer playMakerFactor, Integer fitness) {
-        return ((this.attack*attackFactor/100) + (this.defense*DefenseFactor/100) +
-                (this.playMaker*playMakerFactor/100) + (this.fitness*fitness/100));
+        float tempSum = (this.attack*attackFactor) + (this.defense*DefenseFactor) +
+                (this.playMaker*playMakerFactor) + (this.fitness*fitness);
+        tempSum /= 100; //(same base)
+        return Math.round(tempSum);
     }
 
     public Player(int id, String name,Integer attack,Integer defense,  Integer playMaker,

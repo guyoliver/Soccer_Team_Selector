@@ -33,7 +33,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button btCopyToClipboard;
+        Button btCopyToClipboardRandom, btCopyToClipboardWithScore;
         setContentView(R.layout.activity_selection_next_match_results);
 
         tv = (TextView) findViewById(R.id.textviewResults);
@@ -48,7 +48,8 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         m_fitnessFactor = SettingDatabase.getInstance(this).getFitnessFactor();
 
 
-        btCopyToClipboard = (Button) findViewById(R.id.copyToClipboard);
+        btCopyToClipboardRandom = (Button) findViewById(R.id.copyToClipboard);
+        btCopyToClipboardWithScore = (Button) findViewById(R.id.copyWithScore);
 
         // Create list of teams
         createTeams();
@@ -67,7 +68,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         }
 
         //move to next step
-        btCopyToClipboard.setOnClickListener(new View.OnClickListener() {
+        btCopyToClipboardRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -75,7 +76,9 @@ public class SelectionNextMatchResults extends AppCompatActivity {
 
                 for (Team team: teams) {
                     theString += team.getName() + "\n----------\n";
-                    for (int i=0; i<team.getNumberOfPlayer(); i++) {
+                    List<Player> players = team.copyListAndShuffelTeam();
+
+                    for (int i=0; i<players.size(); i++) {
                         theString += team.getPlayer(i).getName() +"\n";
                     }
                 }
@@ -87,6 +90,28 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             }
         });
 
+
+        //move to next step
+        btCopyToClipboardWithScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String theString = "";
+
+                for (Team team: teams) {
+                    theString += team.getName() + "\n----------\n";
+                    for (int i=0; i<team.getNumberOfPlayer(); i++) {
+                        theString += team.getPlayer(i).getName() +"\n";
+                    }
+                    theString +=  "Total Score: " + team.getTotalFactor() + "\n";
+                }
+
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(v.getContext().CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("teamContent", theString);
+                clipboard.setPrimaryClip(clip);
+
+            }
+        });
 
     }
 

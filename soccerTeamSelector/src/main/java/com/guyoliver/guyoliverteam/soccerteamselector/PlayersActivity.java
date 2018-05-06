@@ -91,6 +91,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עודד", 6,8, 4, 7);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עופר", 6,4, 4, 6);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עידן", 7,8, 7, 7);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רז", 8,7, 8, 7);
     }
     @Override
     public void onClick(View view) {

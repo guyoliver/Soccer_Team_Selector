@@ -3,6 +3,7 @@ package com.guyoliver.guyoliverteam.soccerteamselector;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,6 +43,12 @@ class Team {
 
             return null;
         }
+    }
+    public List<Player> copyListAndShuffelTeam() {
+        List<Player> tempPlayers = this.players;
+        Collections.shuffle(tempPlayers);
+        return tempPlayers;
+
     }
 
     public Team(String name, Integer m_attackFactor, Integer m_defenseFactor,

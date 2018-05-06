@@ -113,8 +113,11 @@ public class PlayersDatabase extends SQLiteOpenHelper {
         {
             switch (upgradeTo)
             {
+                case 1:
+                case 2:
+                    break;
                 case 3:
-                    context.deleteDatabase(DATABASE_NAME);
+                    db.delete(DATABASE_NAME, null, null);
                     //db.execSQL("ALTER TABLE "+ TABLE_NAME + " ADD COLUMN " + COLUMN_STRING_IS_PLAY_NEXT_MATCH + " INTEGER");
                     //db.execSQL("UPDATE " + TABLE_NAME + " SET " +COLUMN_STRING_IS_PLAY_NEXT_MATCH + " = 0 ");
                     break;

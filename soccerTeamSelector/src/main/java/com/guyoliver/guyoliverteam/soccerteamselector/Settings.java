@@ -49,10 +49,10 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
 
         spinnerNumberOfTeams.setSelection(((ArrayAdapter)spinnerNumberOfTeams.getAdapter()).getPosition(numberOfTeams.toString()));
         spinnerNumberOfPlayersPerTeam.setSelection(((ArrayAdapter)spinnerNumberOfPlayersPerTeam.getAdapter()).getPosition(numberOfPlayersPerTeams.toString()));
-        editTextAttack.setSelection(attackFactor);
-        editTextDefense.setSelection(playmakerFactor);
-        editTextPlaymaker.setSelection(defenseFactor);
-        editTextFitness.setSelection(fitnessFactor);
+        editTextAttack.setText(attackFactor.toString());
+        editTextDefense.setText(defenseFactor.toString());
+        editTextPlaymaker.setText(playmakerFactor.toString());
+        editTextFitness.setText(fitnessFactor.toString());
 
     }
     //save data from view into database
