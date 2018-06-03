@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SoccerTeamSelector.iml" filepath="$PROJECT_DIR$/SoccerTeamSelector.iml" />
       <module fileurl="file://$PROJECT_DIR$/Soccer_Team_Selector.iml" filepath="$PROJECT_DIR$/Soccer_Team_Selector.iml" />
       <module fileurl="file://$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" filepath="$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" />
     </modules>

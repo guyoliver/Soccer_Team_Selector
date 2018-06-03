@@ -44,9 +44,10 @@ class Team {
             return null;
         }
     }
-    public List<Player> copyListAndShuffelTeam() {
+    public List<Player> copyListAndShuffleTeam(boolean isRandom) {
         List<Player> tempPlayers = this.players;
-        Collections.shuffle(tempPlayers);
+        if (isRandom)
+            Collections.shuffle(tempPlayers);
         return tempPlayers;
 
     }

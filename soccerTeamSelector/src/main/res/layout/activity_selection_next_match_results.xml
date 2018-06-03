@@ -29,6 +29,13 @@ tools:context=".SelectionNextMatchResults">
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:text="Copy Random" />
+            <Button
+                android:id="@+id/shareAllTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:text="Share All" />
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"

@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +32,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button btCopyToClipboardRandom, btCopyToClipboardWithScore;
+        Button btCopyToClipboardRandom, btCopyToClipboardWithScore, btShareAllTo ;
         setContentView(R.layout.activity_selection_next_match_results);
 
         tv = (TextView) findViewById(R.id.textviewResults);
@@ -50,6 +49,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
 
         btCopyToClipboardRandom = (Button) findViewById(R.id.copyToClipboard);
         btCopyToClipboardWithScore = (Button) findViewById(R.id.copyWithScore);
+        btShareAllTo = (Button) findViewById(R.id.shareAllTo);
 
         // Create list of teams
         createTeams();
@@ -72,16 +72,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String theString = "";
-
-                for (Team team: teams) {
-                    theString += team.getName() + "\n----------\n";
-                    List<Player> players = team.copyListAndShuffelTeam();
-
-                    for (int i=0; i<players.size(); i++) {
-                        theString += team.getPlayer(i).getName() +"\n";
-                    }
-                }
+                String theString = printToLog(true, false);
 
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(v.getContext().CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("teamContent", theString);
@@ -96,15 +87,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String theString = "";
-
-                for (Team team: teams) {
-                    theString += team.getName() + "\n----------\n";
-                    for (int i=0; i<team.getNumberOfPlayer(); i++) {
-                        theString += team.getPlayer(i).getName() +"\n";
-                    }
-                    theString +=  "Total Score: " + team.getTotalFactor() + "\n";
-                }
+                String theString = printToLog(false, true);
 
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(v.getContext().CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("teamContent", theString);
@@ -113,6 +96,46 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             }
         });
 
+        //move to next step
+        btShareAllTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String theString = printToLog(true, true);
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, theString);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+            }
+        });
+
+    }
+
+    private String printToLog(boolean isRandom, boolean isWithScore) {
+
+        String theString = "";
+
+        for (Team team: teams) {
+            theString += team.getName() + "\n----------\n";
+            List<Player> players = team.copyListAndShuffleTeam(isRandom);
+
+            for (int i=0; i<players.size(); i++) {
+                theString += team.getPlayer(i).getName() +"\n";
+            }
+            theString += "\n";
+        }
+
+        if (isWithScore) {
+            theString += "\n\n\n";
+            for (Team team : teams) {
+                theString += team.getName() + "  Total Score: " + team.getTotalFactor() + "\n";
+            }
+        }
+
+        return theString;
     }
 
     //Create teams array
