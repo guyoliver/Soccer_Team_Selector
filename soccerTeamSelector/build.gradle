@@ -6,8 +6,8 @@ android {
         applicationId "com.guyoliver.guyoliverteam.soccerteamselector"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 8
-        versionName '3.4'
+        versionCode 9
+        versionName '3.5'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
