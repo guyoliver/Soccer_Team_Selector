@@ -189,53 +189,52 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         //section 1\//1. Get best attack player to team1, 2nd to team2 and 3rd to team3
         //Sort list by attack
         Collections.sort(tempPlayersList, new PlayerComparatorByAttack());
-        //1. Get best attack player to team1
-        teams.get(0).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-        //1. Get 2nd best to team2
-        teams.get(1).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-        //1. Get 3rd best to team3
-        teams.get(2).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-
+        for (int i=0; i<m_NumberOfTeams; i++) {
+            //1. Get "i" best attack player to team1
+            teams.get(i).addPlayer(tempPlayersList.get(0));
+            //remove player
+            tempPlayersList.remove(0);
+            //1. Get "i" best attack player to team1 and remove him
+            //1. Get 2nd best to team2 and remove him
+            //1. Get 3rd best to team3 and remove him
+        }
 
 
         //section 2\//2. Get best playMaker player to team2, 2nd to team3 and 3rd to team1
         //Sort list by playMaker
         Collections.sort(tempPlayersList, new PlayerComparatorByPlayMaker());
-        //1. Get best playMaker player to team2
-        teams.get(1).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-        //1. Get 2nd best to team3
-        teams.get(2).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-        //1. Get 3rd best to team1
-        teams.get(0).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-
+        for (int i=m_NumberOfTeams-1; i>=0; i--) {
+            //1. Get best playMaker player to team2
+            teams.get(i).addPlayer(tempPlayersList.get(0));
+            //remove player
+            tempPlayersList.remove(0);
+            //1. Get best playMaker player to team2
+            //1. Get 2nd best to team3
+            //1. Get 3rd best to team1
+        }
 
         //section 3\//3. Get best defense player to team3, 2nd to team1 and 3rd to team2
         //Sort list by defense
         Collections.sort(tempPlayersList, new PlayerComparatorByDefense());
-        //1. Get best defense player to team3
-        teams.get(2).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-        //1. Get 2nd best to team1
-        teams.get(0).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
-        //1. Get 3rd best to team2
-        teams.get(1).addPlayer(tempPlayersList.get(0));
-        //remove player
-        tempPlayersList.remove(0);
+        for (int i=m_NumberOfTeams/2; i<m_NumberOfTeams; i++) {
+            //1. Get best defense player to team3
+            teams.get(i).addPlayer(tempPlayersList.get(0));
+            //remove player
+            tempPlayersList.remove(0);
+            //1. Get best defense player to team3 and remove him
+            //1. Get 2nd best to team1 and remove him
+            //1. Get 3rd best to team2 and remove him
+        }
+        for (int i=m_NumberOfTeams/2; i>=0; i--) {
+            //1. Get best defense player to team3
+            teams.get(i).addPlayer(tempPlayersList.get(0));
+            //remove player
+            tempPlayersList.remove(0);
+            //1. Get best defense player to team3 and remove him
+            //1. Get 2nd best to team1 and remove him
+            //1. Get 3rd best to team2 and remove him
+        }
+
 
         //section 3\//4. Rest of team distribute by playerComparator between teams (Attack=40, Defense = 30 and
         //        //    fitness = 30
