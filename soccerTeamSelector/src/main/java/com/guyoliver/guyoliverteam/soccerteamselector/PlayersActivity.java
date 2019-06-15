@@ -71,6 +71,32 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     void addDefaultPlayers(){
+
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רועי אוזן", 55, 64, 45, 45);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אור אהרוני", 69, 69, 61, 69);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אורי יוסף", 33, 45, 24, 50);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלון בלוך", 58, 74, 48, 69);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלירן אהרוני", 68, 59, 59, 69);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק נקש", 51, 33, 34, 46);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא אוליבר", 58, 75, 53, 78);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עומר אבישר", 61, 58, 54, 64);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיל מלא", 56, 65, 47, 58);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דניאל מילשטיין", 72, 78, 57, 85);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוני יפת", 62, 61, 51, 65);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוסי אוחנה", 81, 51, 78, 54);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ירון בן ארי", 85, 66, 83, 76);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("מוני בראל", 91, 68, 85, 82);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עודד אהרוני", 54, 71, 46, 71);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עופר ששון", 62, 41, 46, 63);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עידן הנדלמן", 70, 73, 64, 76);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יניב בן שושן", 74, 63, 69, 71);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוהד אהרוני", 73, 65, 71, 75);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אבישי זמיר", 78, 65, 73, 67);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלי טופחי", 96, 76, 93, 85);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דויד", 60, 60, 70, 60);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק (אור)", 50, 40, 30, 40);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רז קרני", 80, 70, 80, 70);
+/*
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רועי אוזן", 6, 6, 5, 5);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אור אהרוני", 7, 7, 6, 7);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אורי יוסף", 3, 5, 2, 5);
@@ -96,7 +122,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק (אור)", 5, 4, 3, 4);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רז קרני", 8, 7, 8, 7);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ארבל דר", 9,8, 8, 9);
-
+        */
     }
     @Override
     public void onClick(View view) {

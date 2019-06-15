@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 public class Settings extends AppCompatActivity  implements View.OnClickListener{
 
-    Spinner spinnerNumberOfTeams, spinnerNumberOfPlayersPerTeam;
-    EditText editTextAttack, editTextDefense, editTextPlaymaker, editTextFitness;
+    Spinner spinnerNumberOfTeams, spinnerNumberOfPlayersPerTeam, spinnerUseRoundValues;
+    EditText editTextAttack, editTextDefense, editTextPlaymaker, editTextFitness, editTextMaxValueForPlayer;
 
 
     @Override
@@ -26,7 +26,8 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
         editTextDefense = (EditText) findViewById(R.id.editTextDefense);
         editTextPlaymaker = (EditText) findViewById(R.id.editTextPlayMaker);
         editTextFitness = (EditText) findViewById(R.id.editTextFitness);
-
+        editTextMaxValueForPlayer = (EditText) findViewById(R.id.editTextMaxValueForPlayer);
+        spinnerUseRoundValues = (Spinner) findViewById(R.id.spinnerIsRoundValues);
 
         findViewById(R.id.buttonSaveSettings).setOnClickListener(this);
 
@@ -45,13 +46,17 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
         Integer defenseFactor = settingDb.getDefenseFactor();
         Integer playmakerFactor = settingDb.getPlayMakerFactor();
         Integer fitnessFactor = settingDb.getFitnessFactor();
+        Integer maxValueForPlayer = settingDb.getMaxValueForPlayer();
+        Boolean isRoundValue = settingDb.getIsRoundValues();
 
         spinnerNumberOfTeams.setSelection(((ArrayAdapter)spinnerNumberOfTeams.getAdapter()).getPosition(numberOfTeams.toString()));
         spinnerNumberOfPlayersPerTeam.setSelection(((ArrayAdapter)spinnerNumberOfPlayersPerTeam.getAdapter()).getPosition(numberOfPlayersPerTeams.toString()));
+        spinnerUseRoundValues.setSelection(((ArrayAdapter)spinnerUseRoundValues.getAdapter()).getPosition(isRoundValue.toString()));
         editTextAttack.setText(attackFactor.toString());
         editTextDefense.setText(defenseFactor.toString());
         editTextPlaymaker.setText(playmakerFactor.toString());
         editTextFitness.setText(fitnessFactor.toString());
+        editTextMaxValueForPlayer.setText(maxValueForPlayer.toString());
 
     }
     //save data from view into database
@@ -63,6 +68,8 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
         Integer defenseFactor = Integer.parseInt(editTextDefense.getText().toString());
         Integer playmakerFactor = Integer.parseInt(editTextPlaymaker.getText().toString());
         Integer fitnessFactor = Integer.parseInt(editTextFitness.getText().toString());
+        Integer maxValueForPlayer = Integer.parseInt(editTextMaxValueForPlayer.getText().toString());
+        Boolean isRoundValue = Boolean.parseBoolean(spinnerUseRoundValues.getSelectedItem().toString());
 
         Integer totalFactor = attackFactor + defenseFactor + playmakerFactor + fitnessFactor;
         //validity check
@@ -75,7 +82,7 @@ public class Settings extends AppCompatActivity  implements View.OnClickListener
         //save settings to DB
         SettingDatabase settingDb = SettingDatabase.getInstance(context);
         settingDb.saveSettingsToDb(numberOfTeams, numberOfPlayersPerTeams, attackFactor,
-                defenseFactor, playmakerFactor, fitnessFactor);
+                defenseFactor, playmakerFactor, fitnessFactor, isRoundValue, maxValueForPlayer);
 
         return true;
     }

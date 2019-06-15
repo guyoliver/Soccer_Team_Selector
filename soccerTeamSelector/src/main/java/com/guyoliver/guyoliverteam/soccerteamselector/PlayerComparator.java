@@ -24,8 +24,10 @@ public class PlayerComparator implements Comparator<Player>
 
 
     public int compare(Player left, Player right) {
-        int compare_players = right.getTotalFactor(m_attackFactor, m_defenseFactor, m_playMakerFactor, m_fitnessFactor).
-                compareTo(left.getTotalFactor(m_attackFactor, m_defenseFactor, m_playMakerFactor, m_fitnessFactor));
+        int compare_players = PlayerRoundValue.compareWithRoundUpToNearest5IfNeeded(
+                Integer.valueOf(right.getTotalFactor(m_attackFactor, m_defenseFactor, m_playMakerFactor, m_fitnessFactor).intValue()),
+                Integer.valueOf(left.getTotalFactor(m_attackFactor, m_defenseFactor, m_playMakerFactor, m_fitnessFactor).intValue())
+                );
         if (0 == compare_players)
         {
             Random rand = new Random();

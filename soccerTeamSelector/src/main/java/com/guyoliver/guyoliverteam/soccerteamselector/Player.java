@@ -58,12 +58,12 @@ public class Player {
         this.playMaker = playMaker;
     }
 
-    public Integer getTotalFactor(Integer attackFactor, Integer DefenseFactor,
-                                  Integer playMakerFactor, Integer fitness) {
-        float tempSum = (this.attack*attackFactor) + (this.defense*DefenseFactor) +
-                (this.playMaker*playMakerFactor) + (this.fitness*fitness);
+    public Double getTotalFactor(Integer attackFactor, Integer DefenseFactor,
+                                 Integer playMakerFactor, Integer fitness) {
+        Double tempSum = (this.attack*(double)attackFactor) + (this.defense*(double)DefenseFactor) +
+                (this.playMaker*(double)playMakerFactor) + (this.fitness*(double)fitness);
         tempSum /= 100; //(same base)
-        return Math.round(tempSum);
+        return tempSum; //Math.round(tempSum);
     }
 
     public Player(int id, String name,Integer attack,Integer defense,  Integer playMaker,

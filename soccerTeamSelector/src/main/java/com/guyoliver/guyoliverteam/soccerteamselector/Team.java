@@ -15,9 +15,9 @@ class Team {
     private static final String TAG = Team.class.getName();
 
     private String name;
-    private Integer totalDefense;
-    private Integer totalAttack;
-    private Integer totalFactor;
+    private Double totalDefense;
+    private Double totalAttack;
+    private Double totalFactor;
     private Integer numberOfPlayer;
     private List<Player> players;
     private Integer m_attackFactor = 40;
@@ -55,9 +55,9 @@ class Team {
     public Team(String name, Integer m_attackFactor, Integer m_defenseFactor,
                 Integer m_playMakerFactor, Integer m_fitnessFactor) {
         this.name = name;
-        this.totalDefense = 0;
-        this.totalAttack = 0;
-        this.totalFactor = 0;
+        this.totalDefense = 0.0;
+        this.totalAttack = 0.0;
+        this.totalFactor = 0.0;
         this.numberOfPlayer = 0;
         this.players = new ArrayList();
         this.m_attackFactor = m_attackFactor;
@@ -68,7 +68,7 @@ class Team {
     }
 
 
-    public Integer getTotalFactor() {
+    public Double getTotalFactor() {
         return totalFactor;
     }
 
@@ -77,8 +77,8 @@ class Team {
         numberOfPlayer = players.size();
         calculateTeamFactors();
     }
-    public Integer calculateTeamFactors() {
-        totalAttack = totalDefense = totalFactor = 0;
+    public Double calculateTeamFactors() {
+        totalAttack = totalDefense = totalFactor = 0.0;
 
         for (Player player : players) {
             totalAttack += player.getAttack();

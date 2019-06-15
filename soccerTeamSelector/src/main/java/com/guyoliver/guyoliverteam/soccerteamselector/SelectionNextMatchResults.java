@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class SelectionNextMatchResults extends AppCompatActivity {
 
@@ -54,17 +55,34 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         // Create list of teams
         createTeams();
 
+        final int rand_val = new Random().nextInt(3)+1;
+
         //assigned players to teams
-        assignPlayersToTeams(playersList);
+        assignPlayersToTeams(playersList, rand_val);
 
         //print teams
         tv.setText("");
         for (Team team: teams) {
             tv.setText(tv.getText() +  team.getName() + "\n----------\n");
             for (int i=0; i<team.getNumberOfPlayer(); i++) {
-                tv.setText(tv.getText() +  team.getPlayer(i).getName() +"\n");
+                //GUY_TO_REMOVE //tv.setText(tv.getText() +  team.getPlayer(i).getName() +"\n");
+                tv.setText(tv.getText() +  team.getPlayer(i).getName() + "     " + team.getPlayer(i).getTotalFactor(m_attackFactor, m_defenseFactor, m_playMakerFactor,m_fitnessFactor) +"\n");
             }
             tv.setText(tv.getText() +"Total Score: " + team.getTotalFactor() + "\n");
+            String string_rand_val = "";
+            switch (rand_val)
+            {
+                case 1:
+                    string_rand_val = "Attack";
+                    break;
+                case 2:
+                    string_rand_val = "Playmaker";
+                    break;
+                case 3:
+                    string_rand_val = "Defence";
+                    break;
+            }
+            tv.setText(tv.getText() +"Ordered by: " + string_rand_val + "\n");
         }
 
         //move to next step
@@ -72,7 +90,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String theString = printToLog(true, false);
+                String theString = printToLog(true, false, rand_val);
 
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(v.getContext().CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("teamContent", theString);
@@ -87,7 +105,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String theString = printToLog(false, true);
+                String theString = printToLog(false, true, rand_val);
 
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(v.getContext().CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("teamContent", theString);
@@ -101,7 +119,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String theString = printToLog(true, true);
+                String theString = printToLog(true, true, rand_val);
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -114,7 +132,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
 
     }
 
-    private String printToLog(boolean isRandom, boolean isWithScore) {
+    private String printToLog(boolean isRandom, boolean isWithScore, Integer rand_val) {
 
         String theString = "";
 
@@ -123,7 +141,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             List<Player> players = team.copyListAndShuffleTeam(isRandom);
 
             for (int i=0; i<players.size(); i++) {
-                theString += team.getPlayer(i).getName() +"\n";
+                theString += team.getPlayer(i).getName() + "\n"; //+ "     " + team.getPlayer(i).getTotalFactor(m_attackFactor, m_defenseFactor, m_playMakerFactor,m_fitnessFactor) +"\n";
             }
             theString += "\n";
         }
@@ -133,6 +151,21 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             for (Team team : teams) {
                 theString += team.getName() + "  Total Score: " + team.getTotalFactor() + "\n";
             }
+
+            String string_rand_val = "";
+            switch (rand_val)
+            {
+                case 1:
+                    string_rand_val = "Attack";
+                    break;
+                case 2:
+                    string_rand_val = "Playmaker";
+                    break;
+                case 3:
+                    string_rand_val = "Defence";
+                    break;
+            }
+            theString += "Ordered by: " + string_rand_val + "\n";
         }
 
         return theString;
@@ -146,7 +179,7 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         }
     }
 
-    private void assignPlayersToTeams(final List<Player> playersList) {
+    private void assignPlayersToTeams(final List<Player> playersList, Integer order) {
 
 //      https://stackoverflow.com/questions/16588669/spread-objects-evenly-over-multiple-collections
 //
@@ -160,6 +193,11 @@ public class SelectionNextMatchResults extends AppCompatActivity {
 //      Pass2: Iterate through the "too-small buckets" from smallest to largest, and select the best-fitting elements from the largest "too-large bucket" without causing it to become a "too-small bucket;" iterate through the remaining "too-large buckets" from largest to smallest, removing the best-fitting elements from them without causing them to become "too-small buckets." Do the same for the remaining "too-small buckets." The results of this variant won't be as good as they are for the more complex variant because it won't shift buckets from the "too-large" to the "too-small" category or vice versa (hence the search space will be smaller), but this also means that it has much simpler halting conditions (simply iterate through all of the "too-small" buckets and then halt), whereas the complex variant might cause an infinite loop if you're not careful.
 //      The idea is that by moving the largest elements in Pass1 you make it easier to more precisely match up the buckets' sizes in Pass2. You use balanced binary trees so that you can quickly re-index the buckets or the trees of buckets after removing or adding an element, but you could use linked lists instead (the balanced binary trees would have better worst-case performance but the linked lists might have better average-case performance). By performing a best-fit instead of a first-fit in Pass2 you're less likely to perform useless moves (e.g. moving a size-10 object from a bucket that's 5 greater than average into a bucket that's 5 less than average - first fit would blindly perform the movie, best-fit would either query the next "too-large bucket" for a better-sized object or else would remove the "too-small bucket" from the bucket tree).
 
+        //Update to below:
+        // Create the list by the given order
+        // 1 - Attack, PlayMaker, Defence
+        // 2 - PlayMaker, Attack, Defence
+        // 3 - Defence, Attack, PlayMaker
 
         //Algo for distribution between teams:
         // BEST == left in the playing list (removed after selected)
@@ -169,6 +207,13 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         //3. Get best defense player to team3, 2nd to team1 and 3rd to team2
         //4. Rest of team distribute by playerComparator between teams (Attack=40, Defense = 30 and
         //    fitness = 30
+
+        if (order < 1 || order > 3 )
+        {
+            //ERROR! out our bound
+            tv.setText("ERROR with order type");
+            return;
+        }
 
         //section 0
         //Create list with all playing list
@@ -186,9 +231,22 @@ public class SelectionNextMatchResults extends AppCompatActivity {
         }
         averageTeam = averageTeam /3;
 
+
+
         //section 1\//1. Get best attack player to team1, 2nd to team2 and 3rd to team3
         //Sort list by attack
-        Collections.sort(tempPlayersList, new PlayerComparatorByAttack());
+        switch (order)
+        {
+            case 1:
+                Collections.sort(tempPlayersList, new PlayerComparatorByAttack());
+                break;
+            case 2:
+                Collections.sort(tempPlayersList, new PlayerComparatorByPlayMaker());
+                break;
+            case 3:
+                Collections.sort(tempPlayersList, new PlayerComparatorByDefense());
+                break;
+        }
         for (int i=0; i<m_NumberOfTeams; i++) {
             //1. Get "i" best attack player to team1
             teams.get(i).addPlayer(tempPlayersList.get(0));
@@ -202,7 +260,18 @@ public class SelectionNextMatchResults extends AppCompatActivity {
 
         //section 2\//2. Get best playMaker player to team2, 2nd to team3 and 3rd to team1
         //Sort list by playMaker
-        Collections.sort(tempPlayersList, new PlayerComparatorByPlayMaker());
+        switch (order)
+        {
+            case 1:
+                Collections.sort(tempPlayersList, new PlayerComparatorByPlayMaker());
+                break;
+            case 2:
+                Collections.sort(tempPlayersList, new PlayerComparatorByAttack());
+                break;
+            case 3:
+                Collections.sort(tempPlayersList, new PlayerComparatorByAttack());
+                break;
+        }
         for (int i=m_NumberOfTeams-1; i>=0; i--) {
             //1. Get best playMaker player to team2
             teams.get(i).addPlayer(tempPlayersList.get(0));
@@ -215,7 +284,18 @@ public class SelectionNextMatchResults extends AppCompatActivity {
 
         //section 3\//3. Get best defense player to team3, 2nd to team1 and 3rd to team2
         //Sort list by defense
-        Collections.sort(tempPlayersList, new PlayerComparatorByDefense());
+        switch (order)
+        {
+            case 1:
+                Collections.sort(tempPlayersList, new PlayerComparatorByDefense());
+                break;
+            case 2:
+                Collections.sort(tempPlayersList, new PlayerComparatorByDefense());
+                break;
+            case 3:
+                Collections.sort(tempPlayersList, new PlayerComparatorByPlayMaker());
+                break;
+        }
         for (int i=m_NumberOfTeams/2; i<m_NumberOfTeams; i++) {
             //1. Get best defense player to team3
             teams.get(i).addPlayer(tempPlayersList.get(0));
@@ -225,7 +305,9 @@ public class SelectionNextMatchResults extends AppCompatActivity {
             //1. Get 2nd best to team1 and remove him
             //1. Get 3rd best to team2 and remove him
         }
-        for (int i=m_NumberOfTeams/2; i>=0; i--) {
+
+
+        for (int i=(m_NumberOfTeams/2)-1; i>=0; i--) {
             //1. Get best defense player to team3
             teams.get(i).addPlayer(tempPlayersList.get(0));
             //remove player
@@ -238,11 +320,12 @@ public class SelectionNextMatchResults extends AppCompatActivity {
 
         //section 3\//4. Rest of team distribute by playerComparator between teams (Attack=40, Defense = 30 and
         //        //    fitness = 30
+        Collections.sort(tempPlayersList, new PlayerComparator(m_attackFactor, m_defenseFactor, m_playMakerFactor, m_fitnessFactor));
         numberOfEntries = tempPlayersList.size();
         // order list by attack
         for (int i=0; i<numberOfEntries; i++) {
             int teamNumber = -1;
-            int teamCalculatedFactors = 999;
+            Double teamCalculatedFactors = 9999.99;
             //Get lowest not full team
             for (int j=0; j<teams.size(); j++)
             {

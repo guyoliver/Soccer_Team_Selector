@@ -5,12 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.BoringLayout;
 import android.util.Log;
 
 
 public class SettingDatabase extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_NAME = "myplayersettingdatabase";
     private static final String TABLE_NAME = "SETTINGS";
@@ -28,6 +29,10 @@ public class SettingDatabase extends SQLiteOpenHelper {
     private static final int COLUMN_NUMBER_PLAYMAKER_FACTOR = 5;
     private static final String COLUMN_STRING_FITNESS_FACTOR = "FITNESS_FACTOR";
     private static final int COLUMN_NUMBER_FITNESS_FACTOR = 6;
+    private static final String COLUMN_STRING_ROUND_VALUE = "ROUND_VALUES";
+    private static final int COLUMN_NUMBER_ROUND_VALUE = 7;
+    private static final String COLUMN_STRING_MAX_VALUE_FOR_PLAYER = "MAX_VALUE_FOR_PLAYER";
+    private static final int COLUMN_NUMBER_MAX_VALUE_FOR_PLAYER = 8;
 
     private static final String TAG = PlayersDatabase.class.getName();
 
@@ -63,7 +68,9 @@ public class SettingDatabase extends SQLiteOpenHelper {
                             COLUMN_STRING_ATTACK_FACTOR + " INTEGER NOT NULL,\n " +
                             COLUMN_STRING_DEFENSE_FACTOR + " INTEGER NOT NULL,\n " +
                             COLUMN_STRING_PLAYMAKER_FACTOR + " INTEGER NOT NULL,\n " +
-                            COLUMN_STRING_FITNESS_FACTOR + " INTEGER NOT NULL\n " +
+                            COLUMN_STRING_FITNESS_FACTOR + " INTEGER NOT NULL,\n " +
+                            COLUMN_STRING_ROUND_VALUE + " INTEGER NOT NULL,\n " +
+                            COLUMN_STRING_MAX_VALUE_FOR_PLAYER + " INTEGER NOT NULL\n " +
                             ");"
             );
         }
@@ -100,8 +107,15 @@ public class SettingDatabase extends SQLiteOpenHelper {
             switch (upgradeTo)
             {
                 case 1:
+                    break;
                 case 2:
+                    db.execSQL("ALTER TABLE "+ TABLE_NAME + " ADD COLUMN " + COLUMN_STRING_ROUND_VALUE + " INTEGER");
+                    db.execSQL("UPDATE " + TABLE_NAME + " SET " +COLUMN_STRING_ROUND_VALUE + " = 1 ");
+                    db.execSQL("ALTER TABLE "+ TABLE_NAME + " ADD COLUMN " + COLUMN_STRING_MAX_VALUE_FOR_PLAYER + " INTEGER");
+                    db.execSQL("UPDATE " + TABLE_NAME + " SET " +COLUMN_STRING_MAX_VALUE_FOR_PLAYER + " = 100 ");
+                    break;
                 case 3:
+                case 4:
                     db.delete(DATABASE_NAME, null, null);
                     //db.execSQL("ALTER TABLE "+ TABLE_NAME + " ADD COLUMN " + COLUMN_STRING_IS_PLAY_NEXT_MATCH + " INTEGER");
                     //db.execSQL("UPDATE " + TABLE_NAME + " SET " +COLUMN_STRING_IS_PLAY_NEXT_MATCH + " = 0 ");
@@ -125,7 +139,7 @@ public class SettingDatabase extends SQLiteOpenHelper {
         //if the cursor has some data
         if (false == cursorSetting.moveToFirst()) {
             saveSettingsToDb(true, 3, 5, 40,
-                    30, 0, 30);
+                    30, 0, 30, true, 100);
         }
         //closing the cursor
         cursorSetting.close();
@@ -135,15 +149,15 @@ public class SettingDatabase extends SQLiteOpenHelper {
     //public function to save setting
     public boolean saveSettingsToDb(Integer numberOfTeams, Integer numberOfPlayers, Integer attackFactor,
                                     Integer defenseFactor, Integer playMakerFactor,
-                                    Integer fitnessFactor) {
+                                    Integer fitnessFactor, Boolean isRoundValue, Integer maxValueForPlayer) {
         return saveSettingsToDb(false, numberOfTeams, numberOfPlayers, attackFactor,
-                defenseFactor, playMakerFactor, fitnessFactor);
+                defenseFactor, playMakerFactor, fitnessFactor, isRoundValue, maxValueForPlayer);
     }
 
         //public function to add player
     private boolean saveSettingsToDb(Boolean isCreate, Integer numberOfTeams, Integer numberOfPlayers,
                                      Integer attackFactor, Integer defenseFactor, Integer playMakerFactor,
-                                     Integer fitnessFactor) {
+                                     Integer fitnessFactor, Boolean isRoundValue, Integer maxValueForPlayer) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_STRING_NUMBER_OF_TEAMS, numberOfTeams);
         contentValues.put(COLUMN_STRING_NUMBER_OF_PLAYERS_PER_TEAM, numberOfPlayers);
@@ -151,6 +165,9 @@ public class SettingDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_STRING_DEFENSE_FACTOR, defenseFactor);
         contentValues.put(COLUMN_STRING_PLAYMAKER_FACTOR, playMakerFactor);
         contentValues.put(COLUMN_STRING_FITNESS_FACTOR, fitnessFactor);
+        contentValues.put(COLUMN_STRING_ROUND_VALUE, isRoundValue ? 1 : 0);
+        contentValues.put(COLUMN_STRING_MAX_VALUE_FOR_PLAYER, maxValueForPlayer);
+
         if (isCreate)
             mDatabase.insert(TABLE_NAME, COLUMN_STRING_ID + '=' + 1, contentValues);
         else
@@ -175,6 +192,8 @@ public class SettingDatabase extends SQLiteOpenHelper {
                 case COLUMN_NUMBER_DEFENSE_FACTOR:
                 case COLUMN_NUMBER_PLAYMAKER_FACTOR:
                 case COLUMN_NUMBER_FITNESS_FACTOR:
+                case COLUMN_NUMBER_MAX_VALUE_FOR_PLAYER:
+                case COLUMN_NUMBER_ROUND_VALUE:
                     value = cursorSetting.getInt(columnId);
                     break;
                 default:
@@ -189,6 +208,11 @@ public class SettingDatabase extends SQLiteOpenHelper {
 
     public Integer getNumberOfTeams() {
         return getContentFromDb(COLUMN_NUMBER_NUMBER_OF_TEAMS);
+    }
+
+    public Boolean getIsToRoundValues() {
+        //GUYO to update
+        return true; //getContentFromDb(COLUMN_NUMBER_NUMBER_OF_TEAMS);
     }
 
     public Integer getNumberOfPlayersPerTeam() {
@@ -211,6 +235,12 @@ public class SettingDatabase extends SQLiteOpenHelper {
         return getContentFromDb(COLUMN_NUMBER_FITNESS_FACTOR);
     }
 
+    public Boolean getIsRoundValues() {
+        return getContentFromDb(COLUMN_NUMBER_ROUND_VALUE) > 0 ? true : false;
+    }
+    public Integer getMaxValueForPlayer() {
+        return getContentFromDb(COLUMN_NUMBER_MAX_VALUE_FOR_PLAYER);
+    }
 
 
 }

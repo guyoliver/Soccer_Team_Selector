@@ -10,7 +10,8 @@ import java.util.Random;
 public class PlayerComparatorByPlayMaker implements Comparator<Player>
 {
     public int compare(Player left, Player right) {
-        int compare_players = right.getPlayMaker().compareTo(left.getPlayMaker());
+        int compare_players = PlayerRoundValue.compareWithRoundUpToNearest5IfNeeded(right.getPlayMaker(), left.getPlayMaker());
+
         if (0 == compare_players)
         {
             Random rand = new Random();
