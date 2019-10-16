@@ -93,6 +93,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוהד אהרוני", 73, 65, 71, 75);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אבישי זמיר", 78, 65, 73, 67);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלי טופחי", 96, 76, 93, 85);
+        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דודי ירחי", 96, 76, 93, 85);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דויד", 60, 60, 70, 60);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק (אור)", 50, 40, 30, 40);
         PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רז קרני", 80, 70, 80, 70);
