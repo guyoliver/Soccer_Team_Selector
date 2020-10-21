@@ -26,7 +26,6 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     EditText editTextName;
     Spinner spinnerDefensePlayerLevel, spinnerAttackPlayerLevel, spinnerPlayMakerPlayerLevel,
             spinnerFitnessPlayerLevel;
-    Integer defaultPlayersCounter;
     boolean isLoadFile = false;
 
     @Override
@@ -44,10 +43,8 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.buttonAddPlayer).setOnClickListener(this);
         findViewById(R.id.buttonLoadPlayerFromFile).setOnClickListener(this);
         findViewById(R.id.buttonSavePlayerToFile).setOnClickListener(this);
-        findViewById(R.id.buttonAddDefaultPlayers).setOnClickListener(this);
 
         textViewViewPlayers.setOnClickListener(this);
-        defaultPlayersCounter = 0;
 
     }
 
@@ -188,90 +185,23 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    void addDefaultPlayers(){
-
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רועי אוזן", 55, 64, 45, 45);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אור אהרוני", 69, 69, 61, 69);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אורי יוסף", 33, 45, 24, 50);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלון בלוך", 58, 74, 48, 69);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלירן אהרוני", 68, 59, 59, 69);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק נקש", 51, 33, 34, 46);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא אוליבר", 58, 75, 53, 78);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עומר אבישר", 61, 58, 54, 64);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיל מלא", 56, 65, 47, 58);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דניאל מילשטיין", 72, 78, 57, 85);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוני יפת", 62, 61, 51, 65);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוסי אוחנה", 81, 51, 78, 54);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ירון בן ארי", 85, 66, 83, 76);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("מוני בראל", 91, 68, 85, 82);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עודד אהרוני", 54, 71, 46, 71);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עופר ששון", 62, 41, 46, 63);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עידן הנדלמן", 70, 73, 64, 76);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יניב בן שושן", 74, 63, 69, 71);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוהד אהרוני", 73, 65, 71, 75);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אבישי זמיר", 78, 65, 73, 67);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלי טופחי", 96, 76, 93, 85);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דודי ירחי", 96, 76, 93, 85);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דויד", 60, 60, 70, 60);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק (אור)", 50, 40, 30, 40);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רז קרני", 80, 70, 80, 70);
-/*
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רועי אוזן", 6, 6, 5, 5);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אור אהרוני", 7, 7, 6, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אורי יוסף", 3, 5, 2, 5);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלון בלוך", 6, 7, 5, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלירן אהרוני", 7, 6, 6, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק נקש", 5, 3, 3, 5);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיא אוליבר", 6, 8, 5, 8);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עומר אבישר", 6, 6, 5, 6);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("גיל מלא", 6, 7, 5, 6);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דניאל מילשטיין", 7, 8, 6, 8);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוני יפת", 6, 6, 5, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יוסי אוחנה", 8, 5, 8, 5);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ירון בן ארי", 9, 7, 8, 8);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("מוני בראל", 9, 7, 9, 8);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עודד אהרוני", 5, 7, 5, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עופר ששון", 6, 4, 5, 6);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("עידן הנדלמן", 7, 7, 6, 8);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("יניב בן שושן", 7, 6, 7, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אוהד אהרוני", 7, 7, 7, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אבישי זמיר", 8, 6, 7, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אלי טופחי", 10, 8, 9, 9);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("דויד", 6, 6, 7, 6);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("אריק (אור)", 5, 4, 3, 4);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("רז קרני", 8, 7, 8, 7);
-        PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb("ארבל דר", 9,8, 8, 9);
-        */
-    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonAddPlayer:
                 addPlayer();
-                defaultPlayersCounter = 0;
                 break;
             case R.id.textViewViewPlayers:
                 startActivity(new Intent(this, ViewAllPlayersActivity.class));
-                defaultPlayersCounter = 0;
                 break;
             case R.id.buttonLoadPlayerFromFile:
                 isLoadFile = true;
                 OpenFileAndManagePlayers();
-                defaultPlayersCounter = 0;
                 break;
             case R.id.buttonSavePlayerToFile:
                 isLoadFile = false;
                 //OpenFileNew();
                 OpenFileAndManagePlayers();
-                defaultPlayersCounter = 0;
-                break;
-            case R.id.buttonAddDefaultPlayers:
-                if (7 == defaultPlayersCounter) {
-                    addDefaultPlayers();
-                    defaultPlayersCounter++;
-                }
-                else
-                    defaultPlayersCounter++;
                 break;
 
         }
