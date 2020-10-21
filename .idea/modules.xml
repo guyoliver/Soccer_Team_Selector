@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Soccer_Team_Selector.iml" filepath="$PROJECT_DIR$/Soccer_Team_Selector.iml" />
-      <module fileurl="file://$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" filepath="$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Soccer_Team_Selector.iml" filepath="$PROJECT_DIR$/Soccer_Team_Selector.iml" group="Soccer_Team_Selector" />
+      <module fileurl="file://$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" filepath="$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" group="Soccer_Team_Selector/soccerTeamSelector" />
     </modules>
   </component>
 </project>

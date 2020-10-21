@@ -95,6 +95,17 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/buttonLoadPlayerFromFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Load Players from File" />
+
+        <Button
+            android:id="@+id/buttonSavePlayerToFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Players to File" />
     </LinearLayout>
 
     <Button
