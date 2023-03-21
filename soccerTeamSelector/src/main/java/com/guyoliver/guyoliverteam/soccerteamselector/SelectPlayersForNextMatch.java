@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SelectPlayersForNextMatch extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class SelectPlayersForNextMatch extends AppCompatActivity {
         btnnext = (Button) findViewById(R.id.next);
 
         playersList = PlayersDatabase.getInstance(this.getApplicationContext()).getPlayersFromDatabase();
+        playersList.sort(Comparator.comparing(Player::isPlayerPermanent).reversed().thenComparing(Player::getName));
         selectionAdapter = new SelectionAdapter(this,playersList);
         lv.setAdapter(selectionAdapter);
 

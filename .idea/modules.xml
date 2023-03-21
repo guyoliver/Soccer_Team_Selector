@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Soccer_Team_Selector.iml" filepath="$PROJECT_DIR$/Soccer_Team_Selector.iml" group="Soccer_Team_Selector" />
-      <module fileurl="file://$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" filepath="$PROJECT_DIR$/soccerTeamSelector/soccerTeamSelector.iml" group="Soccer_Team_Selector/soccerTeamSelector" />
+      <module fileurl="file://$PROJECT_DIR$/Soccer_Team_Selector.iml" filepath="$PROJECT_DIR$/Soccer_Team_Selector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.iml" filepath="$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.main.iml" filepath="$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/soccerTeamSelector/Soccer_Team_Selector.soccerTeamSelector.unitTest.iml" />
     </modules>
   </component>
 </project>

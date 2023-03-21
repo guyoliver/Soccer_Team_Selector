@@ -25,7 +25,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     TextView textViewViewPlayers;
     EditText editTextName;
     Spinner spinnerDefensePlayerLevel, spinnerAttackPlayerLevel, spinnerPlayMakerPlayerLevel,
-            spinnerFitnessPlayerLevel;
+            spinnerFitnessPlayerLevel, spinnerPlayerPermanent;
     boolean isLoadFile = false;
 
     @Override
@@ -39,6 +39,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         spinnerDefensePlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerDefense);
         spinnerPlayMakerPlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerPlayMaker);
         spinnerFitnessPlayerLevel = (Spinner) findViewById(R.id.spinnerPlayerFitness);
+        spinnerPlayerPermanent = (Spinner) findViewById(R.id.spinnerPlayerPermanent);
 
         findViewById(R.id.buttonAddPlayer).setOnClickListener(this);
         findViewById(R.id.buttonLoadPlayerFromFile).setOnClickListener(this);
@@ -55,9 +56,15 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         int defense = Integer.parseInt(spinnerDefensePlayerLevel.getSelectedItem().toString());
         int playmaker = Integer.parseInt(spinnerPlayMakerPlayerLevel.getSelectedItem().toString());
         int fitness = Integer.parseInt(spinnerFitnessPlayerLevel.getSelectedItem().toString());
+        String stringPlayerPermanent = spinnerPlayerPermanent.getSelectedItem().toString();
+        int playerPermanent = 0;
+
+        if (stringPlayerPermanent.equals("true"))
+            playerPermanent = 1;
+
         if (inputsAreCorrect(name)) {
             if (PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb(name, attack,
-                    defense, playmaker, fitness))
+                    defense, playmaker, fitness, playerPermanent))
             {
                 Toast.makeText(this, "Player Added Successfully", Toast.LENGTH_SHORT).show();
             } else //failed
@@ -115,11 +122,15 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         OutputStreamWriter writer = new OutputStreamWriter(outputStream);
         //BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
         try {
-            String csvLine = "name,attack,defense,playMaker,fitness\r\n";
+            String csvLine = "name,attack,defense,playMaker,fitness,playerPermanent\r\n";
             writer.write(csvLine);
             for (Player entry: resultList) {
-                /*name,attack,defense,playMaker,fitness"*/
-                csvLine = entry.getName() + "," + entry.getAttack() + "," + entry.getDefense() + "," + entry.getPlayMaker() + "," + entry.getFitness() +"\r\n";
+                /*name,attack,defense,playMaker,fitness, playerPermanent"*/
+                int playerPermanent = 0;
+                if (entry.isPlayerPermanent())
+                    playerPermanent = 1;
+
+                csvLine = entry.getName() + "," + entry.getAttack() + "," + entry.getDefense() + "," + entry.getPlayMaker() + "," + entry.getFitness() + "," + playerPermanent +"\r\n";
                 writer.write(csvLine);
             }
         } catch (IOException ex) {
@@ -167,7 +178,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         for (int i=1; i < resultList.size(); i++) {
             guy = (String[]) resultList.get(i);
             PlayersDatabase.getInstance(this.getApplicationContext()).addPlayerToDb(guy[0],Integer.parseInt(guy[1]),Integer.parseInt(guy[2]),
-                    Integer.parseInt(guy[3]),Integer.parseInt(guy[4]));
+                    Integer.parseInt(guy[3]),Integer.parseInt(guy[4]), Integer.parseInt(guy[5]));
         }
     }
 

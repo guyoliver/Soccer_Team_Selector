@@ -51,6 +51,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         TextView textViewDefense = view.findViewById(R.id.textViewPlayerDefense);
         TextView textViewPlayMaker = view.findViewById(R.id.textViewPlayerPlayMaker);
         TextView textViewFitness = view.findViewById(R.id.textViewPlayerFitness);
+        TextView textViewPlayerPermanent = view.findViewById(R.id.textViewPlayerPermanent);
 
         //adding data to views
         textViewName.setText(player.getName());
@@ -58,6 +59,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         textViewDefense.setText(player.getDefense().toString());
         textViewPlayMaker.setText(player.getPlayMaker().toString());
         textViewFitness.setText(player.getFitness().toString());
+        textViewPlayerPermanent.setText(player.isPlayerPermanent()?"True":"False");
 
         //we will use these buttons later for update and delete operation
         Button buttonDelete = view.findViewById(R.id.buttonDeletePlayer);
@@ -111,6 +113,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         final Spinner spinnerDefense = view.findViewById(R.id.spinnerPlayerDefense);
         final Spinner spinnerPlayMaker = view.findViewById(R.id.spinnerPlayerPlayMaker);
         final Spinner spinnerFitness = view.findViewById(R.id.spinnerPlayerFitness);
+        final Spinner spinnerPlayerPermanent = view.findViewById(R.id.spinnerPlayerPermanent);
 
         //update the player info into dialog
         editTextName.setText(player.getName());
@@ -118,6 +121,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         spinnerDefense.setSelection(((ArrayAdapter)spinnerDefense.getAdapter()).getPosition(player.getDefense().toString()));
         spinnerPlayMaker.setSelection(((ArrayAdapter)spinnerPlayMaker.getAdapter()).getPosition(player.getPlayMaker().toString()));
         spinnerFitness.setSelection(((ArrayAdapter)spinnerFitness.getAdapter()).getPosition(player.getFitness().toString()));
+        spinnerPlayerPermanent.setSelection(((ArrayAdapter)spinnerPlayerPermanent.getAdapter()).getPosition(Boolean.toString(player.isPlayerPermanent())));
 
         final AlertDialog dialog = builder.create();
         dialog.show();
@@ -130,6 +134,10 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                 int attack = Integer.parseInt(spinnerAttack.getSelectedItem().toString());
                 int playMaker = Integer.parseInt(spinnerPlayMaker.getSelectedItem().toString());
                 int fitness = Integer.parseInt(spinnerFitness.getSelectedItem().toString());
+                String stringPlayerPermanent = spinnerPlayerPermanent.getSelectedItem().toString();
+                int playerPermanent = 0;
+                if (stringPlayerPermanent.equals("true"))
+                    playerPermanent = 1;
 
                 if (name.isEmpty()) {
                     editTextName.setError("Name can't be blank");
@@ -137,7 +145,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
                     return;
                 }
                 PlayersDatabase.getInstance(view.getContext()).updatePlayer(String.valueOf(player.getId()),
-                        name, attack, defense, playMaker,fitness);
+                        name, attack, defense, playMaker,fitness, playerPermanent);
                 //run reload operation on Ui thread
                 ((Activity) mCtx).runOnUiThread (new Runnable() {
                     @Override

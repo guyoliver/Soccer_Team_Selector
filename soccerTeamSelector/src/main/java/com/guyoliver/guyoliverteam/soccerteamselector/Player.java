@@ -8,11 +8,19 @@ public class Player {
     private Integer attack;
     private Integer fitness;
     private Integer playMaker;
-
     private boolean isPlayNextMatch;
+
+    private boolean isPlayerPermanent;
 
     public void setPlayNextMatch(boolean playNextMatch) {
         this.isPlayNextMatch = playNextMatch;
+    }
+
+    public boolean isPlayerPermanent() {
+        return isPlayerPermanent;
+    }
+    public void setPlayerPermanent(boolean playerPermanent) {
+        isPlayerPermanent = playerPermanent;
     }
 
     public boolean isPlayNextMatch() {
@@ -67,14 +75,26 @@ public class Player {
     }
 
     public Player(int id, String name,Integer attack,Integer defense,  Integer playMaker,
-                  Integer fitness, boolean isPlayNextMatch){
+                  Integer fitness, boolean isPlayerPermanent, boolean isPlayNextMatch){
         this.id = id;
         this.name = name;
         this.attack = attack;
         this.defense = defense;
         this.fitness = fitness;
         this.playMaker = playMaker;
+        this.isPlayerPermanent = isPlayerPermanent;
         this.isPlayNextMatch = isPlayNextMatch;
+    }
+
+    public int compareByPermanentAndName(Player player) {
+        if (isPlayerPermanent() == true & player.isPlayerPermanent() == true)
+            return getName().compareTo(player.getName());
+        else if (isPlayerPermanent() == true & player.isPlayerPermanent() == false)
+            return 1;
+        else if (isPlayerPermanent() == false & player.isPlayerPermanent() == true)
+            return -1;
+        else // both false
+            return getName().compareTo(player.getName());
     }
 
 }

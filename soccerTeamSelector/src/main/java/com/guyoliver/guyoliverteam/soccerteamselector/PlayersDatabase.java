@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PlayersDatabase extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     public static final String DATABASE_NAME = "myplayerdatabase";
     public static final String TABLE_NAME = "PLAYERS";
@@ -32,6 +32,9 @@ public class PlayersDatabase extends SQLiteOpenHelper {
     public static final int COLUMN_NUMBER_FITNESS = 5;
     public static final String COLUMN_STRING_IS_PLAY_NEXT_MATCH = "IS_PLAY_NEXT_MATCH";
     public static final int COLUMN_NUMBER_IS_PLAY_NEXT_MATCH = 6;
+
+    public static final String COLUMN_STRING_IS_PLAYER_PERMANENT = "IS_PLAYER_PERMANENT";
+    public static final int COLUMN_NUMBER_IS_PLAYER_PERMANENT = 7;
 
     private static final String TAG = PlayersDatabase.class.getName();
 
@@ -80,7 +83,8 @@ public class PlayersDatabase extends SQLiteOpenHelper {
                             COLUMN_STRING_DEFENSE + " INTEGER NOT NULL,\n " +
                             COLUMN_STRING_PLAYMAKER + " INTEGER NOT NULL,\n " +
                             COLUMN_STRING_FITNESS + " INTEGER NOT NULL,\n " +
-                            COLUMN_STRING_IS_PLAY_NEXT_MATCH + " INTEGER DEFAULT 0\n " +
+                            COLUMN_STRING_IS_PLAY_NEXT_MATCH + " INTEGER DEFAULT 0,\n " +
+                            COLUMN_STRING_IS_PLAYER_PERMANENT + " INTEGER DEFAULT 0\n " +
                             ");"
             );
         }
@@ -120,6 +124,9 @@ public class PlayersDatabase extends SQLiteOpenHelper {
                     db.delete(DATABASE_NAME, null, null);
                     //db.execSQL("ALTER TABLE "+ TABLE_NAME + " ADD COLUMN " + COLUMN_STRING_IS_PLAY_NEXT_MATCH + " INTEGER");
                     //db.execSQL("UPDATE " + TABLE_NAME + " SET " +COLUMN_STRING_IS_PLAY_NEXT_MATCH + " = 0 ");
+                    break;
+                case 4:
+                    db.execSQL("UPDATE " + TABLE_NAME + " SET " +COLUMN_STRING_IS_PLAYER_PERMANENT + " = 0 ");
                     break;
                     /*
                 case 5:
@@ -207,8 +214,8 @@ public class PlayersDatabase extends SQLiteOpenHelper {
 
     //public function to add player
     public boolean addPlayerToDb(String name, Integer attack, Integer defense,
-                                 Integer playMaker, Integer fitness) {
-        if (addPlayer(name, attack, defense, playMaker, fitness)) {
+                                 Integer playMaker, Integer fitness, Integer isPlayerPermanent) {
+        if (addPlayer(name, attack, defense, playMaker, fitness, isPlayerPermanent)) {
             return true;
         } else
             return false;
@@ -216,7 +223,8 @@ public class PlayersDatabase extends SQLiteOpenHelper {
 
     //private function to add player
     private boolean addPlayer(String name, Integer attack, Integer defense,
-                              Integer playMaker, Integer fitness) {
+                              Integer playMaker, Integer fitness,
+                              Integer isPlayerPermanent) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_STRING_NAME, name);
@@ -225,6 +233,7 @@ public class PlayersDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_STRING_PLAYMAKER, playMaker);
         contentValues.put(COLUMN_STRING_FITNESS, fitness);
         //contentValues.put(COLUMN_STRING_IS_PLAY_NEXT_MATCH, 0); //false
+        contentValues.put(COLUMN_STRING_IS_PLAYER_PERMANENT, isPlayerPermanent); //false
 
         long rt =  mDatabase.insert(TABLE_NAME, null, contentValues);
         Log.d(TAG, "inserting entry to table returned " + rt);
@@ -239,7 +248,7 @@ public class PlayersDatabase extends SQLiteOpenHelper {
 
     //public function to add player
     public boolean updatePlayer(String id, String name, Integer attack, Integer defense,
-                                Integer playMaker, Integer fitness) {
+                                Integer playMaker, Integer fitness, Integer isPlayerPermanent) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_STRING_NAME, name);
@@ -247,6 +256,7 @@ public class PlayersDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_STRING_DEFENSE, defense);
         contentValues.put(COLUMN_STRING_PLAYMAKER, playMaker);
         contentValues.put(COLUMN_STRING_FITNESS, fitness);
+        contentValues.put(COLUMN_STRING_IS_PLAYER_PERMANENT, isPlayerPermanent);
         long rt = mDatabase.update(TABLE_NAME, contentValues, COLUMN_STRING_ID + '=' + id, null);
         Log.d(TAG, "inserting entry to table returned " + rt);
 
@@ -291,6 +301,7 @@ public class PlayersDatabase extends SQLiteOpenHelper {
                         cursorPlayer.getInt(COLUMN_NUMBER_DEFENSE),
                         cursorPlayer.getInt(COLUMN_NUMBER_PLAYMAKER),
                         cursorPlayer.getInt(COLUMN_NUMBER_FITNESS),
+                        cursorPlayer.getInt(COLUMN_NUMBER_IS_PLAYER_PERMANENT)> 0 ? true: false,
                         cursorPlayer.getInt(COLUMN_NUMBER_IS_PLAY_NEXT_MATCH)> 0 ? true: false
                         ));
             } while (cursorPlayer.moveToNext());
